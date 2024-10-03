@@ -1,10 +1,12 @@
 FROM node:22.0
 
-RUN git clone https://github.com/Vantarc/formsredirect.git /src
+RUN git clone https://github.com/Vantarc/formsredirect.git /src/
 
-WORKDIR /src
+WORKDIR /src/src
+
+RUN ls -la
 
 RUN npm install
 
 
-CMD node index.js
+CMD tail -f /dev/null
