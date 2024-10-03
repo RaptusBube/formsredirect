@@ -1,0 +1,20 @@
+services:
+  web:
+    build: .
+    volumes:
+      - ./src/:/src/
+    networks:
+      - traefik_default
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.formsredirect-https.rule=Host(`forms.gatrobe.de`) && PathPrefix(`/r`)
+      - traefik.http.routers.formsredirect-https.entrypoints=websecure
+      - traefik.http.routers.formsredirect-https.tls=true
+      - traefik.http.routers.formsredirect-https.tls.certresolver=production
+      - traefik.http.routers.formsredirect-https.middlewares=my-keycloakopenid@file
+      - traefik.http.routers.formsredirect-https.service=formsredirect-service
+      - traefik.http.services.formsredirect-service.loadbalancer.server.port=3000
+
+networks:
+  traefik_default:
+    external: true
