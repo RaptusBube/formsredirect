@@ -1,8 +1,7 @@
 services:
   web:
     build: .
-    volumes:
-      - ./src/:/src/
+    restart: unless-stopped
     networks:
       - traefik_default
     labels:
